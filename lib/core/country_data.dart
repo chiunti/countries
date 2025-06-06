@@ -40,6 +40,9 @@ class CountryData {
         final prefs = await SharedPreferences.getInstance();
         final savedCountries = prefs.getStringList(_savedCountriesKey) ?? [];
 
+        // sort data by name
+        data.sort((a, b) => a['name']['common'].compareTo(b['name']['common']));
+
         return List<Map<String, dynamic>>.from(
           data.map((country) {
             final isSaved = savedCountries.contains(country['name']['common']);
@@ -63,6 +66,8 @@ class CountryData {
       final response = await http.get(Uri.parse('$_baseUrl/name/$query'));
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
+        // sort data by name
+        data.sort((a, b) => a['name']['common'].compareTo(b['name']['common']));
         return List<Map<String, dynamic>>.from(
           data.where(
             (country) => savedCountries.contains(country['name']['common']),
