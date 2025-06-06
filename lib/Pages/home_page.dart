@@ -1,5 +1,5 @@
-import 'package:countries/Pages/saved_tab.dart';
-import 'package:countries/Pages/search_tab.dart';
+import 'package:countries/pages/saved_tab.dart';
+import 'package:countries/pages/search_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:countries/core/app_colors.dart';
 

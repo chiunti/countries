@@ -1,4 +1,5 @@
 import 'package:countries/core/app_colors.dart';
+import 'package:countries/core/country_data.dart';
 import 'package:countries/core/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,11 @@ class _CountryCardState extends State<CountryCard> {
   }
 
   void _toggleBookmark() {
+    if (_isBookmarked) {
+      CountryData.removeCountry(widget.countryData['name']['common']);
+    } else {
+      CountryData.saveCountry(widget.countryData['name']['common']);
+    }
     setState(() {
       _isBookmarked = !_isBookmarked;
       widget.countryData['isBookmarked'] = _isBookmarked;

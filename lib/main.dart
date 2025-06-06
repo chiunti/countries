@@ -1,5 +1,5 @@
-import 'package:countries/Pages/details_page.dart';
-import 'package:countries/Pages/home_page.dart';
+import 'package:countries/pages/details_page.dart';
+import 'package:countries/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
