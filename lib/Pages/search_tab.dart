@@ -1,6 +1,6 @@
 import 'package:countries/components/country_card.dart';
 import 'package:countries/components/text_search.dart';
-import 'package:countries/core/country_data.dart';
+import 'package:countries/core/country_service.dart';
 import 'package:countries/core/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class _SearchTabState extends State<SearchTab> {
 
   Future<void> _loadCountryData() async {
     try {
-      final data = await CountryData.list(fields: 'name,capital,flags');
+      final data = await CountryService.list(fields: 'name,capital,flags');
       setState(() {
         debugPrint('Country data loaded: ${data.length} countries');
         _countryData = data;
@@ -43,7 +43,7 @@ class _SearchTabState extends State<SearchTab> {
 
   Future<void> _searchCountryData(String query) async {
     try {
-      final data = await CountryData.search(query);
+      final data = await CountryService.search(query);
       setState(() {
         _countryData = data;
         _isFiltered = true;

@@ -8,8 +8,9 @@ import 'package:countries/components/detail_population.dart';
 import 'package:countries/components/detail_time_zone.dart';
 import 'package:countries/components/detail_languages.dart';
 import 'package:countries/core/app_colors.dart';
+import 'package:countries/core/country_persistence.dart';
 import 'package:flutter/material.dart';
-import 'package:countries/core/country_data.dart';
+import 'package:countries/core/country_service.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key, required String countryName})
@@ -49,7 +50,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _loadCountryData() async {
     try {
       debugPrint('Loading country data for: ${widget._countryName}');
-      final data = await CountryData.get(widget._countryName);
+      final data = await CountryService.get(widget._countryName);
       setState(() {
         _countryName = data?['name']['common'] ?? '';
         _countryOfficial = data?['name']['official'] ?? '';
@@ -102,9 +103,9 @@ class _DetailsPageState extends State<DetailsPage> {
             color: AppColors.bookmark,
             onPressed: () {
               if (_isBookmarked) {
-                CountryData.removeCountry(_countryName);
+                CountryPersistence.removeCountry(_countryName);
               } else {
-                CountryData.saveCountry(_countryName);
+                CountryPersistence.saveCountry(_countryName);
               }
               setState(() {
                 _isBookmarked = !_isBookmarked;
