@@ -19,18 +19,27 @@ class DetailCountryName extends StatelessWidget {
           child: SizedBox(
             height: 70,
             width: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(countryName, style: TextStyles.cardTitle),
-                Text(
-                  textAlign: TextAlign.center,
-                  countryOfficial,
-                  style: TextStyles.cardSubtitle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    countryName,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.cardTitle,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      countryOfficial,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.cardSubtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
