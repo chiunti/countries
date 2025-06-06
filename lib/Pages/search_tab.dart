@@ -15,6 +15,7 @@ class _SearchTabState extends State<SearchTab> {
   List<Map<String, dynamic>> _countryData = [];
   bool _isLoading = true;
   bool _isFiltered = false;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _SearchTabState extends State<SearchTab> {
       setState(() {
         _countryData = data;
         _isFiltered = true;
+        _searchQuery = query;
       });
     } catch (e) {
       debugPrint('Error searching country data in SearchTab: $e');
@@ -76,7 +78,11 @@ class _SearchTabState extends State<SearchTab> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    await _loadCountryData();
+                    if (_isFiltered) {
+                      await _searchCountryData(_searchQuery);
+                    } else {
+                      await _loadCountryData();
+                    }
                   },
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,

@@ -15,6 +15,7 @@ class _SavedTabState extends State<SavedTab> {
   List<Map<String, dynamic>> _countryData = [];
   bool _isLoading = true;
   bool _isFiltered = false;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _SavedTabState extends State<SavedTab> {
       setState(() {
         _countryData = data;
         _isFiltered = true;
+        _searchQuery = query;
       });
     } catch (e) {
       debugPrint('Error searching country data in SavedTab: $e');
@@ -56,7 +58,13 @@ class _SavedTabState extends State<SavedTab> {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : RefreshIndicator(
-            onRefresh: _loadCountryData,
+            onRefresh: () async {
+              if (_isFiltered) {
+                await _searchCountryData(_searchQuery);
+              } else {
+                await _loadCountryData();
+              }
+            },
             child: Column(
               children: [
                 Text('Saved', style: TextStyles.title),
