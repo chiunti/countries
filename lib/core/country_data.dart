@@ -65,9 +65,7 @@ class CountryData {
         final List<dynamic> data = json.decode(response.body);
         return List<Map<String, dynamic>>.from(
           data.where(
-            (country) =>
-                savedCountries.contains(country['name']['common']) &&
-                country['isBookmarked'] == true,
+            (country) => savedCountries.contains(country['name']['common']),
           ),
         );
       }
