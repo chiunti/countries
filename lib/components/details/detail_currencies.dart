@@ -1,17 +1,12 @@
-import 'package:countries/core/app_colors.dart';
-import 'package:countries/core/text_styles.dart';
+import 'package:countries/core/theme/app_colors.dart';
+import 'package:countries/core/theme/text_styles.dart';
+import 'package:countries/models/country/country_model.dart';
 import 'package:flutter/material.dart';
 
 /// Widget que muestra las monedas del país
 class DetailCurrencies extends StatelessWidget {
-  final Map<String, dynamic> countryCurrencies;
+  final Map<String, CurrencyDetail> countryCurrencies;
   const DetailCurrencies({super.key, required this.countryCurrencies});
-
-  String formatCurrency(Map<String, dynamic> currency) {
-    final symbol = currency['symbol'] ?? '';
-    final name = currency['name'] ?? '';
-    return '($symbol $name)';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +26,7 @@ class DetailCurrencies extends StatelessWidget {
               Text(
                 countryCurrencies.entries
                     .map((entry) {
-                      return "${entry.key} ${formatCurrency(entry.value)}";
+                      return "${entry.key} (${entry.value.symbol} ${entry.value.name})";
                     })
                     .join('\n'),
                 style: TextStyles.detailCardSubtitle,

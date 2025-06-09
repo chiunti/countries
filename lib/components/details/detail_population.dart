@@ -1,6 +1,6 @@
-import 'package:countries/core/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:countries/core/text_styles.dart';
+import 'package:countries/core/theme/app_colors.dart';
+import 'package:countries/core/theme/text_styles.dart';
 import 'package:intl/intl.dart';
 
 /// Widget que muestra la población del país

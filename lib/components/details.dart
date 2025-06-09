@@ -1,0 +1,9 @@
+export 'package:countries/components/details/detail_car_drive.dart';
+export 'package:countries/components/details/detail_coat.dart';
+export 'package:countries/components/details/detail_country_name.dart';
+export 'package:countries/components/details/detail_currencies.dart';
+export 'package:countries/components/details/detail_flag.dart';
+export 'package:countries/components/details/detail_location.dart';
+export 'package:countries/components/details/detail_population.dart';
+export 'package:countries/components/details/detail_time_zone.dart';
+export 'package:countries/components/details/detail_languages.dart';

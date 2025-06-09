@@ -1,4 +1,4 @@
-import 'package:countries/core/app_colors.dart';
+import 'package:countries/core/theme/app_colors.dart';
 import 'package:flutter/painting.dart';
 
 /// Clase que contiene los estilos de texto

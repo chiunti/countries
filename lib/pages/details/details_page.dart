@@ -1,16 +1,9 @@
-import 'package:countries/components/detail_car_drive.dart';
-import 'package:countries/components/detail_coat.dart';
-import 'package:countries/components/detail_country_name.dart';
-import 'package:countries/components/detail_currencies.dart';
-import 'package:countries/components/detail_flag.dart';
-import 'package:countries/components/detail_location.dart';
-import 'package:countries/components/detail_population.dart';
-import 'package:countries/components/detail_time_zone.dart';
-import 'package:countries/components/detail_languages.dart';
-import 'package:countries/core/app_colors.dart';
-import 'package:countries/core/country_persistence.dart';
+import 'package:countries/components/details.dart';
+import 'package:countries/core/theme/app_colors.dart';
+import 'package:countries/models/country/country_persistence.dart';
+import 'package:countries/models/country/country_model.dart';
 import 'package:flutter/material.dart';
-import 'package:countries/core/country_service.dart';
+import 'package:countries/models/country/country_service.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key, required String countryName})
@@ -23,20 +16,7 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  Map<String, dynamic>? countryJSON;
-  String _countryName = '';
-  String _countryOfficial = '';
-  List<dynamic> _countryCapital = [];
-  String _countryFlag = '';
-  int _countryPopulation = 0;
-  List<dynamic> _countryTimeZones = [];
-  Map<String, dynamic> _countryLanguages = {};
-  Map<String, dynamic> _countryCurrencies = {};
-  String _countryCarDrive = '';
-  String _countryCoat = '';
-  String _countryRegion = '';
-  String _countrySubregion = '';
-  bool _isBookmarked = false;
+  Country? _country;
 
   @override
   void initState() {
@@ -49,22 +29,9 @@ class _DetailsPageState extends State<DetailsPage> {
 
   Future<void> _loadCountryData() async {
     try {
-      debugPrint('Loading country data for: ${widget._countryName}');
       final data = await CountryService.get(widget._countryName);
       setState(() {
-        _countryName = data?['name']['common'] ?? '';
-        _countryOfficial = data?['name']['official'] ?? '';
-        _countryFlag = data?['flags']['png'] ?? '';
-        _countryPopulation = data?['population'] ?? 0;
-        _countryTimeZones = data?['timezones'] ?? [];
-        _countryLanguages = data?['languages'] ?? {};
-        _countryCurrencies = data?['currencies'] ?? {};
-        _countryCarDrive = data?['car']['side'] ?? '';
-        _countryCoat = data?['coatOfArms']['png'] ?? '';
-        _countryRegion = data?['region'] ?? '';
-        _countrySubregion = data?['subregion'] ?? '';
-        _countryCapital = data?['capital'] ?? [];
-        _isBookmarked = data?['isBookmarked'] ?? false;
+        _country = data;
       });
     } catch (e) {
       debugPrint('Error loading country data in DetailsPage: $e');
@@ -73,7 +40,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_countryName.isEmpty) {
+    if (_country == null) {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -99,48 +66,50 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(_isBookmarked ? Icons.bookmark : Icons.bookmark_border),
+            icon: Icon(
+              _country!.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+            ),
             color: AppColors.bookmark,
             onPressed: () {
-              if (_isBookmarked) {
-                CountryPersistence.removeCountry(_countryName);
+              if (_country!.isBookmarked) {
+                CountryPersistence.removeCountry(_country!.name.common);
               } else {
-                CountryPersistence.saveCountry(_countryName);
+                CountryPersistence.saveCountry(_country!.name.common);
               }
               setState(() {
-                _isBookmarked = !_isBookmarked;
+                _country!.isBookmarked = !_country!.isBookmarked;
               });
             },
           ),
         ],
-        title: Text(_countryName),
+        title: Text(_country!.name.common),
         centerTitle: true,
       ),
       body: Stack(
         children: [
           Column(
             children: [
-              DetailFlag(countryFlag: _countryFlag),
+              DetailFlag(countryFlag: _country!.flagPng!),
               SizedBox(height: 50),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
                     DetailLocation(
-                      countryRegion: _countryRegion,
-                      countrySubregion: _countrySubregion,
-                      countryCapital: _countryCapital,
+                      countryRegion: _country!.region!,
+                      countrySubregion: _country!.subregion!,
+                      countryCapital: _country!.capital!,
                     ),
                     Row(
                       children: [
                         Expanded(
                           child: DetailTimeZone(
-                            countryTimeZones: _countryTimeZones,
+                            countryTimeZones: _country!.timezones!,
                           ),
                         ),
                         Expanded(
                           child: DetailPopulation(
-                            countryPopulation: _countryPopulation,
+                            countryPopulation: _country!.population!,
                           ),
                         ),
                       ],
@@ -149,12 +118,13 @@ class _DetailsPageState extends State<DetailsPage> {
                       children: [
                         Expanded(
                           child: DetailLanguages(
-                            countryLanguages: _countryLanguages,
+                            countryLanguages: _country!.languages!.languageMap,
                           ),
                         ),
                         Expanded(
                           child: DetailCurrencies(
-                            countryCurrencies: _countryCurrencies,
+                            countryCurrencies:
+                                _country!.currencies!.currencyMap,
                           ),
                         ),
                       ],
@@ -162,9 +132,15 @@ class _DetailsPageState extends State<DetailsPage> {
                     Row(
                       children: [
                         Expanded(
-                          child: DetailCarDrive(carDriveSide: _countryCarDrive),
+                          child: DetailCarDrive(
+                            carDriveSide: _country!.car!.side,
+                          ),
                         ),
-                        Expanded(child: DetailCoat(countryCoat: _countryCoat)),
+                        Expanded(
+                          child: DetailCoat(
+                            countryCoat: _country!.coatOfArmsPng!,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -177,8 +153,8 @@ class _DetailsPageState extends State<DetailsPage> {
             left: 20,
             right: 20,
             child: DetailCountryName(
-              countryName: _countryName,
-              countryOfficial: _countryOfficial,
+              countryName: _country!.name.common,
+              countryOfficial: _country!.name.official,
             ),
           ),
         ],

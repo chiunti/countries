@@ -1,7 +1,7 @@
-import 'package:countries/pages/saved_tab.dart';
-import 'package:countries/pages/search_tab.dart';
+import 'package:countries/pages/home/saved_tab.dart';
+import 'package:countries/pages/home/search_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:countries/core/app_colors.dart';
+import 'package:countries/core/theme/app_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,10 +1,10 @@
-import 'package:countries/core/app_colors.dart';
+import 'package:countries/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../core/text_styles.dart';
+import 'package:countries/core/theme/text_styles.dart';
 
 /// Widget que muestra los lenguajes del país
 class DetailLanguages extends StatelessWidget {
-  final Map<String, dynamic> countryLanguages;
+  final Map<String, String> countryLanguages;
   const DetailLanguages({super.key, required this.countryLanguages});
 
   @override

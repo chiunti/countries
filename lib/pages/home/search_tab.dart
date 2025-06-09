@@ -1,7 +1,7 @@
-import 'package:countries/components/country_card.dart';
-import 'package:countries/components/text_search.dart';
-import 'package:countries/core/country_service.dart';
-import 'package:countries/core/text_styles.dart';
+import 'package:countries/components/home.dart';
+import 'package:countries/models/country/country_service.dart';
+import 'package:countries/core/theme/text_styles.dart';
+import 'package:countries/models/country/country_model.dart';
 import 'package:flutter/material.dart';
 
 class SearchTab extends StatefulWidget {
@@ -12,7 +12,7 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
-  List<Map<String, dynamic>> _countryData = [];
+  List<Country> _countryData = [];
   bool _isLoading = true;
   bool _isFiltered = false;
   String _searchQuery = '';
@@ -27,7 +27,6 @@ class _SearchTabState extends State<SearchTab> {
     try {
       final data = await CountryService.list(fields: 'name,capital,flags');
       setState(() {
-        debugPrint('Country data loaded: ${data.length} countries');
         _countryData = data;
         _isLoading = false;
         _isFiltered = false;
@@ -91,7 +90,7 @@ class _SearchTabState extends State<SearchTab> {
                     itemBuilder: (context, index) {
                       final countryData = _countryData[index];
                       return CountryCard(
-                        key: ValueKey(countryData['name']['common']),
+                        key: ValueKey(countryData.name.common),
                         countryData: countryData,
                       );
                     },

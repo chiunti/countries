@@ -1,8 +1,7 @@
-import 'package:countries/components/country_card.dart';
-import 'package:countries/components/text_search.dart';
-import 'package:countries/core/country_persistence.dart';
-import 'package:countries/core/country_service.dart';
-import 'package:countries/core/text_styles.dart';
+import 'package:countries/components/home.dart';
+import 'package:countries/models/country/country_model.dart';
+import 'package:countries/models/country/country_service.dart';
+import 'package:countries/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class SavedTab extends StatefulWidget {
@@ -13,7 +12,7 @@ class SavedTab extends StatefulWidget {
 }
 
 class _SavedTabState extends State<SavedTab> {
-  List<Map<String, dynamic>> _countryData = [];
+  List<Country> _countryData = [];
   bool _isLoading = true;
   bool _isFiltered = false;
   String _searchQuery = '';
@@ -26,9 +25,9 @@ class _SavedTabState extends State<SavedTab> {
 
   Future<void> _loadCountryData() async {
     try {
-      final data = await CountryPersistence.saved(fields: 'name,capital,flags');
+      final saved = await CountryService.saved(fields: 'name,capital,flags');
       setState(() {
-        _countryData = data;
+        _countryData = saved;
         _isLoading = false;
         _isFiltered = false;
       });

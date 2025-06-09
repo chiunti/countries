@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/app_colors.dart';
-import '../core/text_styles.dart';
+import 'package:countries/core/theme/app_colors.dart';
+import 'package:countries/core/theme/text_styles.dart';
 
 /// Widget que muestra el escudo nacional
 class DetailCoat extends StatelessWidget {

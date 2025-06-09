@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/text_styles.dart';
+import 'package:countries/core/theme/text_styles.dart';
 
 /// Widget que muestra el nombre del país y su nombre oficial
 class DetailCountryName extends StatelessWidget {
