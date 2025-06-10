@@ -1,7 +1,7 @@
 import 'package:countries/components/home.dart';
 import 'package:countries/models/country/country_model.dart';
 import 'package:countries/models/country/country_service.dart';
-import 'package:countries/core/theme/text_styles.dart';
+import 'package:countries/app/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class SavedTab extends StatefulWidget {

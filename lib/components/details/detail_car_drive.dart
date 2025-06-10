@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:countries/core/theme/app_colors.dart';
-import 'package:countries/core/theme/text_styles.dart';
+import 'package:countries/app/theme/app_colors.dart';
+import 'package:countries/app/theme/text_styles.dart';
 
 /// Widget que muestra la información de la dirección del coche
 class DetailCarDrive extends StatelessWidget {

@@ -1,8 +1,10 @@
 import 'package:countries/pages/home/saved_tab.dart';
 import 'package:countries/pages/home/search_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:countries/core/theme/app_colors.dart';
+import 'package:countries/app/theme/app_colors.dart';
+import 'package:auto_route/auto_route.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

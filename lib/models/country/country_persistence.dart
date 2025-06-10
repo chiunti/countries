@@ -1,4 +1,4 @@
-import 'package:countries/core/persistence.dart';
+import 'package:countries/app/persistence.dart';
 
 class CountryPersistence {
   static const String _savedCountriesKey = 'saved_countries';

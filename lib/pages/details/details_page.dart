@@ -1,10 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:countries/components/details.dart';
-import 'package:countries/core/theme/app_colors.dart';
+import 'package:countries/app/theme/app_colors.dart';
 import 'package:countries/models/country/country_persistence.dart';
 import 'package:countries/models/country/country_model.dart';
-import 'package:flutter/material.dart';
 import 'package:countries/models/country/country_service.dart';
+import 'package:flutter/material.dart';
 
+@RoutePage()
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key, required String countryName})
     : _countryName = countryName;

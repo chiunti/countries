@@ -1,6 +1,5 @@
-import 'package:countries/pages/details/details_page.dart';
-import 'package:countries/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:countries/app/router.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,16 +13,9 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const HomePage(),
-      routes: {
-        '/details': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments as String;
-          return DetailsPage(countryName: args);
-        },
-      },
-    );
+    return MaterialApp.router(routerConfig: _appRouter.config());
   }
 }
